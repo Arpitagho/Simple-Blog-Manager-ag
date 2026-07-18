@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Blog Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navdiv">
+            <div id="logo">📖Tech Blogs</div>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="blogs.html">Blogs</a></li>
+                <li><a href="add_blog.html">Add Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <form>
+                    <input type="search" placeholder="Search blogs">
+                    <button>🔍</button>
+                </form>
+            </ul>
+        </div>
+    </nav>
+
+    <h2>Add New Blog</h2>
+    <form>
+        <div id="title">
+            <label>Blog Title </label>
+            <input type="text" placeholder="enter blog title">
+        </div>
+        <div id="category">
+             <label>Category</label>
+            <select>
+                <option value="HTML">HTML</option>
+                <option value="CSS">CSS</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="Node.js">Node.js</option>
+            </select>
+        </div>
+        <div id="author">
+            <label>Author Name</label>
+            <input type="text" placeholder="Enter author name">
+        </div>
+        <div id="image">
+            <label>Blog Image URL</label>
+            <input type="url" placeholder="Enter image urls">
+        </div>
+        <div>
+            <label>Short Description</label>
+            <textarea></textarea>
+        </div>
+        <div>
+            <label>Blog Content</label>
+            <textarea placeholder="Write your blog content here"></textarea>
+        </div>
+        <div>
+            <label>Tags</label>
+             <input type="text" placeholder="#HIML #CSS #JavaScript">
+        </div>
+
+        <button type="submit">Publish Blog</button>
+        <button type="reset">Reset</button>
+
+    </form>
+
+     <footer>
+        <div id="about">&copy 2026 Tech Blog| Created by <b>Arpita Ghosh</b></div>
+        <div id="social_icons">
+            <ul>
+                <li><a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a></li>
+                <li><a href="https://twitter.com" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a></li>
+                <li><a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                <li><a href="https://github.com" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a></li>
+            </ul>
+        </div>
+    </footer>
+
+</body>
+</html>
