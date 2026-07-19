@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Blog Manager</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
     <nav class="navbar">
@@ -16,7 +17,7 @@
                 <li><a href="add_blog.html">Add Blog</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <form>
+                <form id="f">
                     <input type="search" placeholder="Search blogs">
                     <button>🔍</button>
                 </form>
@@ -33,28 +34,28 @@
                 <a href="blogs.html"><button>Explore Blogs</button></a>
             </div>
         </div>
-        <div class="small_container"><img src="blog_image.jpeg" style="width: 300px; height: auto;"></div>
+        <div class="small_container"><img src="blog_image.jpeg"></div>
     </div>
 
     <section class="latest-blogs">
         <h2>Latest Blogs</h2>
         <div class="blog-container">
             <div class="blog-card">
-                <img src="https://www.kenility.com/wp-content/uploads/2023/03/ImagenesBlogWeb_1-0ac.jpg"style="width: 300px; height: auto;">
+                <img src="https://www.kenility.com/wp-content/uploads/2023/03/ImagenesBlogWeb_1-0ac.jpg">
                 <h4>Getting Started with HTML</h4>
                 <p>Learn the basics of HTML and create your first web page from scratch.</p>
                 <a href="#">Read more  &#x2192</a>
             </div>
 
             <div class="blog-card">
-                <img src="https://coursevania.com/wp-content/uploads/2024/02/5674674_c070.jpg"style="width: 300px; height: auto;">
+                <img src="https://coursevania.com/wp-content/uploads/2024/02/5674674_c070.jpg">
                 <h4>Why CSS Matters</h4>
                 <p>CSS helps create attractive and responsive web pages pages.</p>
                 <a href="#">Read more  &#x2192</a>
             </div>
 
             <div class="blog-card">
-                <img src="https://webandcrafts.com/_next/image?url=https%3A%2F%2Fadmin.wac.co%2Fuploads%2FNode_js_Architecture_A_Comprehensive_Guide_1_af37a73e1e.png&w=4500&q=90"style="width: 300px; height: auto;">
+                <img src="https://webandcrafts.com/_next/image?url=https%3A%2F%2Fadmin.wac.co%2Fuploads%2FNode_js_Architecture_A_Comprehensive_Guide_1_af37a73e1e.png&w=4500&q=90">
                 <h4>Introduction to Node.js</h4>
                 <p>Build fast server-side applications using JavaScript.</p>
                 <a href="#">Read more  &#x2192</a>
@@ -62,7 +63,7 @@
         </div>
     </section>
 
-    <footer>
+    <!----<footer>
         <div id="about">&copy 2026 Tech Blog| Created by <b>Arpita Ghosh</b></div>
         <div id="social_icons">
             <ul>
@@ -72,6 +73,27 @@
                 <li><a href="https://github.com" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a></li>
             </ul>
         </div>
-    </footer>
+    </footer>---->
+    <footer>
+        <div id="about">&copy; 2026 Tech Blog | Created by <b>Arpita Ghosh</b></div>
+        <div id="social_icons">
+        <a href="https://facebook.com" target="_blank">
+            <i class="fa-brands fa-facebook"></i>
+        </a>
+        <a href="https://twitter.com" target="_blank">
+            <i class="fa-brands fa-x-twitter"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://github.com" target="_blank">
+            <i class="fa-brands fa-github"></i>
+        </a>
+    </div>
+</footer>
+
+
+
+    
 </body>
 </html>
