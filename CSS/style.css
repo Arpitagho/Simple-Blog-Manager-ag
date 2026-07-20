@@ -140,6 +140,10 @@ span{
     font-weight: normal;
 }
 
+.form{
+    background: linear-gradient(90deg, rgb(173, 232, 255),white)
+}
+
 .form-container{
     display: flex;
     justify-content: center;
@@ -148,10 +152,9 @@ span{
 
 #content{
     width: 600px;
-    border: 1px solid #ddd;
+    border: 1px solid #8d8c8c;
     border-radius: 10px;
     padding: 30px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.15)
 }
 
 .form-group{
@@ -315,6 +318,11 @@ span{
 
 .navbar li a:hover {
     text-shadow: 0 0 17px rgb(229, 240, 255);
+}
+
+
+.form-group input:hover, .form-group select:hover,.form-group textarea:hover {
+    box-shadow: 0 0 10px rgb(0, 164, 229);
 }
 
 
