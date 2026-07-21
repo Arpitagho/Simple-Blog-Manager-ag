@@ -27,14 +27,14 @@
 
     <h2>Add New Blog</h2>
     <div class="form-container">
-        <form id="content">
+        <form id="content" action="/api/blogs" method="post">
             <div class="form-group">
                 <label class="reqd">Blog Title<span style="color: red;">*</span></label>
-                <input type="text" id="title" placeholder="Enter blog title">
+                <input type="text" id="title" name="title" placeholder="Enter blog title">
             </div>
             <div class="form-group">
                 <label>Category<span style="color: red;">*</span></label>
-                <select>
+                <select name="category">
                     <option value="HTML">HTML</option>
                     <option value="CSS">CSS</option>
                     <option value="JavaScript">JavaScript</option>
@@ -43,23 +43,23 @@
             </div>
             <div class="form-group">
                 <label class="reqd">Author Name<span style="color: red;">*</span></label>
-                <input type="text" id="author" placeholder="Enter author name">
+                <input type="text" id="author" name="author" placeholder="Enter author name">
             </div>
             <div class="form-group">
                 <label>Blog Image URL</label>
-                <input type="url" id="image-url" placeholder="Enter image urls">
+                <input type="url" id="image-url" name="image-url" placeholder="Enter image urls">
             </div>
             <div class="form-group">
                 <label class="reqd">Short Description<span style="color: red;">*</span></label>
-                <textarea id="shortDesc" placeholder="Add a short description"></textarea>
+                <textarea id="shortDesc" name="shortDesc" placeholder="Add a short description"></textarea>
             </div>
             <div class="form-group">
                 <label class="reqd">Blog Content<span style="color: red;">*</span></label>
-                <textarea id="txt" placeholder="Write your blog content here"></textarea>
+                <textarea id="txt" name="content" placeholder="Write your blog content here"></textarea>
             </div>
             <div class="form-group">
                 <label>Tags</label>
-                <input type="text" placeholder="#HIML #CSS #JavaScript">
+                <input type="text" name="tags" placeholder="#HIML #CSS #JavaScript">
             </div>
             <div class="buttons">
                 <button type="submit">Publish</button>

@@ -1,7 +1,7 @@
 
 const form = document.getElementById("content");
 
-form.addEventListener("submit", function(event){
+form.addEventListener("submit", async function(event){
     event.preventDefault();
 
     const title = document.getElementById("title").value.trim();
@@ -50,7 +50,27 @@ form.addEventListener("submit", function(event){
         return;
     }
 
-    window.open("success.html","_blank");
+    const formData = new URLSearchParams(new FormData(form));
+
+    try {
+        const response = await fetch("/api/blogs", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: formData
+        });
+
+        if (response.ok) {
+            window.location.href = "success.html";
+        } else {
+            alert("Something went wrong on the server!");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Server is not responding. Make sure Express server is running on http://localhost:3000");
+    }
+   // window.open("success.html","_blank");
 
 });
 
