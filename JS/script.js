@@ -50,27 +50,8 @@ form.addEventListener("submit", async function(event){
         return;
     }
 
-    const formData = new URLSearchParams(new FormData(form));
-
-    try {
-        const response = await fetch("/api/blogs", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: formData
-        });
-
-        if (response.ok) {
-            window.location.href = "success.html";
-        } else {
-            alert("Something went wrong on the server!");
-        }
-    } catch (error) {
-        console.error("Error:", error);
-        alert("Server is not responding. Make sure Express server is running on http://localhost:3000");
-    }
-   // window.open("success.html","_blank");
+    
+   window.open("success.html","_blank");
 
 });
 

@@ -12,6 +12,8 @@ app.get("/", (req, res) =>{
    res.sendFile(__dirname + "/add_blog.html");
 });
 
+let blogs = []
+
 app.post("/api/blogs", (req, res)=>{
     const title = req.body.title;
     const category = req.body.category;
@@ -21,17 +23,43 @@ app.post("/api/blogs", (req, res)=>{
     const content = req.body.content;
     const tags = req.body.tags;
 
-    console.log("--------------- New Blog Submission --------------");
-    console.log("Title              : " + title);
-    console.log("Category           : " + category);
-    console.log("Author             : " + author);
-    console.log("Image URL          : " + imageUrl);
-    console.log("Short Description  : " + shortDesc);
-    console.log("Content            : " + content);
-    console.log("Tags               : " + tags);
-    console.log("---------------------------------------------------")
+    const newBlog ={
+        id: Date.now(),
+        title: title,
+        category: category,
+        author: author,
+        imageUrl : imageUrl,
+        shortDesc: shortDesc,
+        content: content,
+        tags: tags,
+        createdAt: new Date().toLocaleString()
 
-    res.status(200).send("Blog Submitted succesfully!");
+    };
+
+    blogs.push(newBlog);
+    console.log("--------------- New Blog Added to the Array --------------");
+    console.log(blogs);
+    console.log("---------------------------------------------------");
+
+    
+
+    // console.log("--------------- New Blog Submission --------------");
+    // console.log("Title              : " + title);
+    // console.log("Category           : " + category);
+    // console.log("Author             : " + author);
+    // console.log("Image URL          : " + imageUrl);
+    // console.log("Short Description  : " + shortDesc);
+    // console.log("Content            : " + content);
+    // console.log("Tags               : " + tags);
+    // console.log("---------------------------------------------------")
+
+   // res.status(200).send(newBlogs);
+
+   res.status(201).json({
+    success: true,
+    message: "Blog added successfully!",
+    data: newBlog
+});
 });
 
 
