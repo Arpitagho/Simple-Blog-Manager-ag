@@ -50,8 +50,32 @@ form.addEventListener("submit", async function(event){
         return;
     }
 
+    try {
+        const response = await fetch("/api/blogs", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                title: title,
+                author: author,
+                "image-url": image,
+                shortDesc: shortDesc,
+                content: content,
+                category: document.querySelector('select[name="category"]').value,
+                tags: document.querySelector('input[name="tags"]').value
+            })
+        });
+
+        if (response.ok) {
+            //alert("Blog added successfully!");
+            window.location.href = "success.html"; // 
+        }
+    } catch (error) {
+        console.error("Error posting blog:", error);
+    }
     
-   window.open("success.html","_blank");
+   //window.open("success.html","_blank");
 
 });
 
