@@ -8,7 +8,7 @@ async function fetchAndDisplayBlogs() {
         const response = await fetch("/api/blogs");
         const result = await response.json();
 
-        const blogs = result.data;
+        const blogs = result.data.slice(0,3);
 
         // if no blogs in the server
         if (!blogs || blogs.length === 0) {
@@ -29,7 +29,13 @@ async function fetchAndDisplayBlogs() {
                     <h4>${blog.title}</h4>
                     <p style="font-size:0.85em; color:gray; margin-bottom: 5px;">By ${blog.author} | ${blog.category}</p>
                     <p>${blog.shortDesc}</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
                     <a href="#">Read more &#x2192;</a>
+                    
+                    <a href="edit_blog.html?id=${blog.id}">
+                            <button style="padding: 5px 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit</button>
+                        </a>
+                    </div>
                 </div>
             `;
 
