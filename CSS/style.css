@@ -117,6 +117,9 @@ span{
     border: 1px solid black;
     overflow: hidden;
     background: #fff;
+
+    display: flex;
+    flex-direction: column;
 }
 
 .blog-card img{

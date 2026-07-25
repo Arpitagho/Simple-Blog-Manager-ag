@@ -39,28 +39,7 @@
 
     <section class="latest-blogs">
         <h2>Latest Blogs</h2>
-        <div class="blog-container" id="blog-container">
-            <!-- <div class="blog-card">
-                <img src="https://www.kenility.com/wp-content/uploads/2023/03/ImagenesBlogWeb_1-0ac.jpg">
-                <h4>Getting Started with HTML</h4>
-                <p>Learn the basics of HTML and create your first web page from scratch.</p>
-                <a href="#">Read more  &#x2192</a>
-            </div>
-
-            <div class="blog-card">
-                <img src="https://coursevania.com/wp-content/uploads/2024/02/5674674_c070.jpg">
-                <h4>Why CSS Matters</h4>
-                <p>CSS helps create attractive and responsive web pages pages.</p>
-                <a href="#">Read more  &#x2192</a>
-            </div>
-
-            <div class="blog-card">
-                <img src="https://webandcrafts.com/_next/image?url=https%3A%2F%2Fadmin.wac.co%2Fuploads%2FNode_js_Architecture_A_Comprehensive_Guide_1_af37a73e1e.png&w=4500&q=90">
-                <h4>Introduction to Node.js</h4>
-                <p>Build fast server-side applications using JavaScript.</p>
-                <a href="#">Read more  &#x2192</a>
-            </div> -->
-        </div>
+        <div class="blog-container" id="blog-container"></div>
     </section>
 
     <footer>
@@ -80,7 +59,10 @@
         </a>
     </div>
 </footer>
-
+<div id="toast-notification" style="display: none; position: fixed; bottom: 25px; right: 25px; background-color: #222; color: #fff; padding: 12px 20px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 1000; align-items: center; gap: 15px; font-family: Arial, sans-serif;">
+    <span id="toast-message" style="color: white">Blog deleted successfully!</span>
+    <button id="undo-btn" style="background: none; border: none; color: #ffbc00; font-weight: bold; cursor: pointer; text-decoration: underline; font-size: 14px;">Undo</button>
+</div>
     <script src="JS/home.js"></script>
 </body>
 </html>
