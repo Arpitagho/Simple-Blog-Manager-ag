@@ -4,6 +4,10 @@
     box-sizing: border-box;
     text-decoration: none;
 }
+body {
+    /* background-color: #f0f4f8;  */
+    background: linear-gradient(135deg, #e3edf7 0%, #f4f8fc 100%);
+}
 
 .navbar, footer{
     background: rgb(1, 1, 63);
@@ -144,7 +148,8 @@ span{
 }
 
 .form{
-    background: linear-gradient(90deg, rgb(173, 232, 255),white)
+    /* background: linear-gradient(90deg, rgb(173, 232, 255),white) */
+    background: linear-gradient(135deg, #e3edf7 0%, #f4f8fc 100%);
 }
 
 .form-container{
@@ -274,16 +279,30 @@ span{
     box-shadow: 0 0 12px rgb(122,179,253);
 }
 
-.about-info ul{
-    padding-left: 30px;
-    margin-top: 10px;
+/* .about-page{
+    background: linear-gradient( rgb(173, 232, 255),white) 
+} */
+
+.about-info{
+    margin: 20px;
 }
 
-.about-info li{
+.about-info ul{
+    padding-left: 10px;
+    margin-top: 10px;
+}
+.about-info ul li::before {
+    content: "✅";
+    color: #1d7de2;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* .about-info li{
     list-style-type: disc;
     display: list-item;
     margin-bottom: 10px;
-}
+} */
 
 .navbar li a {
     color: white;
@@ -328,10 +347,25 @@ span{
     box-shadow: 0 0 10px rgb(0, 164, 229);
 }
 
+@media (max-width: 900px) {
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
 
-@media (max-width: 768px) {
+
+@media (max-width: 810px) {
+
+    #logo{
+        font-size: 20px;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-right: 55px;
+    }
     .welcome {
-        flex-direction: column-reverse; /* Stacks image on top, text below on mobile */
+        flex-direction: column-reverse; 
         text-align: center;
         padding: 40px 20px;
     }
