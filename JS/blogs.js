@@ -60,8 +60,6 @@ async function deleteBlog(id) {
         const result = await response.json();
 
         if (response.ok && result.success) {
-           // lastDeletedBlog = result.data;
-           const actualBlog = result.data.blog.blog ? result.data.blog.blog : result.data.blog;
            lastDeletedBlog = {
                 blogData: result.data.blog,
                 index: result.data.index
@@ -139,116 +137,91 @@ async function undoDelete() {
 
 document.addEventListener('DOMContentLoaded', loadAllBlogs);
 
-//search feature adding
-// const searchForm = document.getElementById("f");
+// =========================================================
+// 🔍 ADDITIONAL SEARCH FEATURE CODE ( do not touch above code )
+// =========================================================
 
-// if (searchForm) {
-//     searchForm.addEventListener("submit", async (e) => {
-//         e.preventDefault(); // prevents Page reload
+document.addEventListener("DOMContentLoaded", () => {
+    // HTML-এর Search Form এবং Input ধরা হচ্ছে
+    const searchForm = document.getElementById("search-form");
+    const searchInput = document.getElementById("search-input");
+
+    if (searchForm && searchInput) {
+        // Form submit (Enter বা Search icon click) হ্যান্ডেল করার জন্য
+        searchForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const query = searchInput.value.trim();
+            handleBlogSearch(query);
+        });
+
+        // Real-time (টাইপ করার সাথে সাথে সার্চ করতে চাইলে)
+        searchInput.addEventListener("input", (e) => {
+            const query = e.target.value.trim();
+            handleBlogSearch(query);
+        });
+    }
+});
+
+// সার্চের জন্য আলাদা ফাংশন (যা তোমার আগের fetchAndDisplayBlogs কে ডিস্টার্ব করবে না)
+async function handleBlogSearch(query) {
+    const blogContainer = document.getElementById("blog-container");
+    if (!blogContainer) return;
+
+    // যদি সার্চ বক্স ফাঁকা করা হয়, তবে তোমার পুরনো ফাংশন ডেকে আগের অবস্থায় ফিরিয়ে নেবে
+    if (!query) {
+        loadAllBlogs();
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/blogs?query=${encodeURIComponent(query)}`);
+        const result = await response.json();
+
+        if (result.success) {
+            const blogs = result.data;
+
+            // যদি কোনো রেজাল্ট না পাওয়া যায়
+            if (!blogs || blogs.length === 0) {
+                blogContainer.innerHTML = `<p style='text-align: center; width: 100%; font-weight: bold; color: #666; margin: 30px auto;'>No blogs found matching "${query}"</p>`;
+                return;
+            }
+
+            // রেজাল্টগুলোকে স্ক্রিনে রেন্ডার করা (তোমার আগের UI কার্ড ফরম্যাটেই)
+            blogContainer.innerHTML = "";
+
+            blogs.forEach(blog => {
+                const blogCard = document.createElement("div");
+                blogCard.className = "blog-card";
+
+                blogCard.innerHTML = `
+                    <img src="${blog.imageUrl || 'https://via.placeholder.com/320x180'}" alt="Blog Image" style="width: 100%; height: 180px; object-fit: cover;">
         
-//         const searchInput = searchForm.querySelector("input").value.trim();
-//         const blogContainer = document.getElementById("blog-container") || document.querySelector('.blogs-grid') || document.querySelector('.blog-container');
-
-//         try {
-//             // fetching API with Search Query 
-//             const response = await fetch(`/api/blogs?search=${encodeURIComponent(searchInput)}`);
-//             const result = await response.json();
-
-//             if (result.success) {
-//                 const blogs = result.data;
-
-//                 if (!blogs || blogs.length === 0) {
-//                     blogContainer.innerHTML = "<p style='text-align: center; width: 100%; font-weight: bold; color: #666; margin: 30px auto;'>No matching blogs found!</p>";
-//                     return;
-//                 }
-
-//                 // rendering search result on UI 
-//                 blogContainer.innerHTML = "";
-//                 blogs.forEach(blog => {
-//                     const blogCard = `
-//                         <div class="blog-card">
-//                             <img src="${blog.imageUrl || 'https://via.placeholder.com/320x180'}" alt="${blog.title}" style="width: 100%; height: 180px; object-fit: cover;">
-//                             <div style="padding: 15px; display: flex; flex-direction: column; flex-grow: 1;">
-//                                 <h4 style="margin: 0 0 5px 0;">${blog.title}</h4>
-//                                 <p style="font-size:0.85em; color:gray; margin-bottom: 5px;">By ${blog.author} | ${blog.category}</p>
-//                                 <p style="margin-bottom: 15px; flex-grow: 1;">${blog.shortDesc}</p>
-//                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
-//                                     <a href="blog_details.html?id=${blog.id}">Read more &#x2192;</a>
-//                                     <div style="display: flex; gap: 8px; align-items: center;">
-//                                         <a href="edit_blog.html?id=${blog.id}">
-//                                             <button style="padding: 5px 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit</button>
-//                                         </a>
-//                                         <button onclick="deleteBlog('${blog.id}')" title="Delete Blog" style="background-color: #000; color: white; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
-//                                             <i class="fa-solid fa-trash" style="font-size: 14px;"></i>
-//                                         </button>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     `;
-//                     blogContainer.innerHTML += blogCard;
-//                 });
-//             }
-//         } catch (error) {
-//             console.error("Error searching blogs:", error);
-//         }
-//     });
-// }
-
-const searchForm = document.getElementById("f");
-
-if (searchForm) {
-    searchForm.addEventListener("submit", async (e) => {
-        e.preventDefault(); 
-        
-        
-        const searchInputEl = searchForm.querySelector("input");
-        const searchInput = searchInputEl ? searchInputEl.value.trim() : "";
-
-        const blogContainer = document.getElementById("blog-container") || document.querySelector('.blogs-grid');
-
-        if (!blogContainer) return;
-
-        try {
-            
-            const response = await fetch(`/api/blogs?search=${encodeURIComponent(searchInput)}`);
-            const result = await response.json();
-
-            if (result.success) {
-                const blogs = result.data;
-
-                if (!blogs || blogs.length === 0) {
-                    blogContainer.innerHTML = "<p style='text-align: center; width: 100%; font-weight: bold; color: #666; margin: 30px auto;'>No matching blogs found!</p>";
-                    return;
-                }
-                blogContainer.innerHTML = "";
-                blogs.forEach(blog => {
-                    const blogCard = `
-                        <div class="blog-card">
-                            <img src="${blog.imageUrl || 'https://via.placeholder.com/320x180'}" alt="${blog.title}" style="width: 100%; height: 180px; object-fit: cover;">
-                            <div style="padding: 15px; display: flex; flex-direction: column; flex-grow: 1;">
-                                <h4 style="margin: 0 0 5px 0;">${blog.title}</h4>
-                                <p style="font-size:0.85em; color:gray; margin-bottom: 5px;">By ${blog.author} | ${blog.category}</p>
-                                <p style="margin-bottom: 15px; flex-grow: 1;">${blog.shortDesc}</p>
-                                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
-                                    <a href="blog_details.html?id=${blog.id}">Read more &#x2192;</a>
-                                    <div style="display: flex; gap: 8px; align-items: center;">
-                                        <a href="edit_blog.html?id=${blog.id}">
-                                            <button style="padding: 5px 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit</button>
-                                        </a>
-                                        <button onclick="deleteBlog('${blog.id}')" title="Delete Blog" style="background-color: #000; color: white; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
-                                            <i class="fa-solid fa-trash" style="font-size: 14px;"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                    <div style="padding: 15px; display: flex; flex-direction: column; flex-grow: 1;">
+                        <h4 style="margin: 0 0 5px 0;">${blog.title}</h4>
+                        <p style="font-size:0.85em; color:gray; margin-bottom: 5px;">By ${blog.author} | ${blog.category}</p>
+                        
+                        <p style="margin-bottom: 15px; flex-grow: 1;">${blog.shortDesc}</p>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+                            <a href="blog_details.html?id=${blog.id}">Read more &#x2192;</a>
+                            
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <a href="edit_blog.html?id=${blog.id}">
+                                    <button style="padding: 5px 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit</button>
+                                </a>
+                                <button onclick="deleteBlog('${blog.id}')" title="Delete Blog" style="background-color: #000; color: white; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fa-solid fa-trash" style="font-size: 14px;"></i>
+                                </button>
                             </div>
                         </div>
-                    `;
-                    blogContainer.innerHTML += blogCard;
-                });
-            }
-        } catch (error) {
-            console.error("Error searching blogs:", error);
+                    </div>
+                `;
+
+                blogContainer.appendChild(blogCard);
+            });
         }
-    });
+    } catch (error) {
+        console.error("Error searching blogs:", error);
+    }
 }
+

@@ -75,143 +75,231 @@ let blogs = [
     }
 ];
 
-// GET All Blogs
+//
+let messages = [];
+
+// GET All Blogs (with search support)
 app.get("/api/blogs", (req, res) => {
+    const { query } = req.query;
+
+    if (query) {
+        const q = query.toLowerCase();
+        const filteredBlogs = blogs.filter(b => 
+            b.title.toLowerCase().includes(q) ||
+            b.category.toLowerCase().includes(q) ||
+            b.author.toLowerCase().includes(q) ||
+            (b.tags && b.tags.toLowerCase().includes(q))
+        );
+
+        return res.status(200).json({
+            success: true,
+            data: filteredBlogs
+        });
+    }
+
     res.status(200).json({
         success: true,
         data: blogs
     });
 });
 
+
 // GET Single Blog by ID
 app.get("/api/blogs/:id", (req, res) => {
-    const blogId = parseInt(req.params.id);
-    const blog = blogs.find(b => b.id === blogId);
+    try{
+        const blogId = parseInt(req.params.id);
+        const blog = blogs.find(b => b.id === blogId);
 
-    if (!blog) {
-        return res.status(404).json({
+        if (!blog) {
+            return res.status(404).json({
             success: false,
             message: "Blog not found!"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            data: blog
+        });
+            
+    }catch(err){
+         console.error(err);
+
+        res.status(500).json({
+            success:false,
+            message:"Internal Server Error"
         });
     }
-
-    res.status(200).json({
-        success: true,
-        data: blog
-    });
 });
 
 // POST New Blog
 app.post("/api/blogs", (req, res) => {
-    const { title, category, author, shortDesc, content, tags } = req.body;
-    const imageUrl = req.body["image-url"] || req.body.imageUrl;
+    try{
+        const { title, category, author, shortDesc, content, tags } = req.body;
+        const imageUrl = req.body["image-url"] || req.body.imageUrl;
 
-    const newID = blogs.length > 0 ? Math.max(...blogs.map(b => b.id)) + 1 : 1;
+        // Backend Validation
+        if (!title?.trim()) {
+            return res.status(400).json({
+                success: false,
+                message: "Title is required."
+            });
+        }
 
-    const newBlog = {
-        id: newID,
-        title,
-        category,
-        author,
-        imageUrl,
-        shortDesc,
-        content,
-        tags,
-        createdAt: new Date().toLocaleString()
-    };
+        if (!author?.trim()) {
+            return res.status(400).json({
+                success: false,
+                message: "Author is required."
+            });
+        }
 
-    blogs.unshift(newBlog);
-    console.log("--------------- New Blog Added ---------------");
-    console.table(blogs.map(b => ({
-        ID: b.id,
-        Title: b.title.length > 25 ? b.title.substring(0, 22) + "..." : b.title,
-        Category: b.category,
-        Author: b.author
-    })));
+        if (!shortDesc?.trim()) {
+            return res.status(400).json({
+                success: false,
+                message: "Short description is required."
+            });
+        }
 
-    res.status(201).json({
-        success: true,
-        message: "Blog added successfully!",
-        data: newBlog
-    });
+        if (!content?.trim()) {
+            return res.status(400).json({
+                success: false,
+                message: "Content is required."
+            });
+        }
+
+
+
+        const newID = blogs.length > 0 ? Math.max(...blogs.map(b => b.id)) + 1 : 1;
+
+        const newBlog = {
+            id: newID,
+            title,
+            category,
+            author,
+            imageUrl,
+            shortDesc,
+            content,
+            tags,
+            createdAt: new Date().toLocaleString()
+        };
+
+        blogs.unshift(newBlog);
+        console.log("--------------- New Blog Added ---------------");
+        console.table(blogs.map(b => ({
+            ID: b.id,
+            Title: b.title.length > 25 ? b.title.substring(0, 22) + "..." : b.title,
+            Category: b.category,
+            Author: b.author
+        })));
+
+        res.status(201).json({
+            success: true,
+            message: "Blog added successfully!",
+            data: newBlog
+        });
+
+    }catch(err){
+        console.error(err);
+
+        res.status(500).json({
+            success:false,
+            message:"Internal Server Error"
+        });
+    }
 });
 
 // PUT Update Blog
 app.put("/api/blogs/:id", (req, res) => {
-    const blogId = parseInt(req.params.id);
-    const blogIndex = blogs.findIndex(b => b.id === blogId);
+    try{
+        const blogId = parseInt(req.params.id);
+        const blogIndex = blogs.findIndex(b => b.id === blogId);
 
-    if (blogIndex === -1) {
-        return res.status(404).json({
-            success: false,
-            message: "Blog not found!"
+        if (blogIndex === -1) {
+            return res.status(404).json({
+                success: false,
+                message: "Blog not found!"
+            });
+        }
+
+        blogs[blogIndex] = {
+            ...blogs[blogIndex],
+            title: req.body.title || blogs[blogIndex].title,
+            category: req.body.category || blogs[blogIndex].category,
+            author: req.body.author  || blogs[blogIndex].author,
+            imageUrl: req.body["image-url"] !== undefined ? req.body["image-url"] : blogs[blogIndex].imageUrl,
+            shortDesc: req.body.shortDesc || blogs[blogIndex].shortDesc,
+            content: req.body.content || blogs[blogIndex].content,
+            tags: req.body.tags || blogs[blogIndex].tags
+        };
+
+        console.log(`\n================ BLOG ID ${blogId} UPDATED ================`);
+        console.table(blogs.map(b => ({
+            ID: b.id,
+            Title: b.title.length > 25 ? b.title.substring(0, 22) + "..." : b.title,
+            Category: b.category,
+            Author: b.author
+        })));
+
+        res.status(200).json({
+            success: true,
+            message: "Blog updated successfully!",
+            data: blogs[blogIndex]
+        });
+    }catch(err){
+            console.error(err);
+
+        res.status(500).json({
+        success:false,
+        message:"Internal Server Error"
         });
     }
-
-    blogs[blogIndex] = {
-        ...blogs[blogIndex],
-        title: req.body.title,
-        category: req.body.category,
-        author: req.body.author,
-        imageUrl: req.body["image-url"] !== undefined ? req.body["image-url"] : blogs[blogIndex].imageUrl,
-        shortDesc: req.body.shortDesc,
-        content: req.body.content,
-        tags: req.body.tags
-    };
-
-    console.log(`\n================ BLOG ID ${blogId} UPDATED ================`);
-    console.table(blogs.map(b => ({
-        ID: b.id,
-        Title: b.title.length > 25 ? b.title.substring(0, 22) + "..." : b.title,
-        Category: b.category,
-        Author: b.author
-    })));
-
-    res.status(200).json({
-        success: true,
-        message: "Blog updated successfully!",
-        data: blogs[blogIndex]
-    });
 });
 
 // DELETE Blog API Route
 app.delete("/api/blogs/:id", (req, res) => {
-    const blogId = parseInt(req.params.id);
-    const blogIndex = blogs.findIndex(b => b.id === blogId);
+   try{
+        const blogId = parseInt(req.params.id);
+        const blogIndex = blogs.findIndex(b => b.id === blogId);
 
-    if (blogIndex === -1) {
-        return res.status(404).json({
-            success: false,
-            message: "Blog not found!"
-        });
-    }
-
-    // delete blog from Array 
-    //const deletedBlog = blogs.splice(blogIndex, 1);
-    const [deletedBlog] = blogs.splice(blogIndex, 1);
-
-    console.log(`\n------------- BLOG ID ${blogId} DELETED -------------`);
-    console.table(blogs.map(b => ({
-        ID: b.id,
-        Title: b.title.length > 25 ? b.title.substring(0, 22) + "..." : b.title,
-        Category: b.category,
-        Author: b.author
-    })));
-
-    res.status(200).json({
-        success: true,
-        message: "Blog deleted successfully!",
-        //data: deletedBlog[0]
-        data: {
-            blog: deletedBlog,
-            index: blogIndex // index of the deleted blog
+        if (blogIndex === -1) {
+            return res.status(404).json({
+                success: false,
+                message: "Blog not found!"
+            });
         }
+
+        const [deletedBlog] = blogs.splice(blogIndex, 1);
+
+        console.log(`\n------------- BLOG ID ${blogId} DELETED -------------`);
+        console.table(blogs.map(b => ({
+            ID: b.id,
+            Title: b.title.length > 25 ? b.title.substring(0, 22) + "..." : b.title,
+            Category: b.category,
+            Author: b.author
+        })));
+
+        res.status(200).json({
+            success: true,
+            message: "Blog deleted successfully!",
+            data: {
+                blog: deletedBlog,
+                index: blogIndex // index of the deleted blog
+            }
+        });
+   }catch(err){
+         console.error(err);
+
+        res.status(500).json({
+        success:false,
+        message:"Internal Server Error"
     });
+
+   }
 });
 
 // RESTORE Blog Route (Undo functionality)
 app.post("/api/blogs/restore", (req, res) => {
-    const { blog, index } = req.body;
+    let { blog, index } = req.body;
 
     if (!blog) {
         return res.status(400).json({ success: false, message: "No blog data provided" });
@@ -237,6 +325,68 @@ app.post("/api/blogs/restore", (req, res) => {
     });
 });
 
+// Contact Form API
+app.post("/api/contact", (req, res) => {
+
+    try {
+
+        const {name, email, subject, message} = req.body;
+
+        // Backend validation
+        if(!name || !email || !subject || !message){
+
+            return res.status(400).json({
+                success:false,
+                message:"All fields are required."
+            });
+
+        }
+
+
+        const newMessage = {
+            id: messages.length + 1,
+            name,
+            email,
+            subject,
+            message,
+            createdAt: new Date().toLocaleString()
+        };
+
+
+        messages.push(newMessage);
+
+
+        console.log("New Contact Message:");
+        console.log(newMessage);
+
+
+        res.status(201).json({
+            success:true,
+            message:"Message sent successfully!"
+        });
+
+
+    } catch(err){
+
+        console.error(err);
+
+        res.status(500).json({
+            success:false,
+            message:"Internal Server Error"
+        });
+
+    }
+
+});
+
+// 404 Route (must be the last route)
+app.use((req, res) => {
+    res.status(404).send(`
+        <h1>404 - Page Not Found</h1>
+        <p>The page you are looking for does not exist.</p>
+        <a href="/">Go Back Home</a>
+    `);
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);

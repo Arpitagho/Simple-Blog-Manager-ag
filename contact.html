@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Simple Blog Manager</title>
+     <title>Tech Blogs | Contact</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="CSS/style.css">
 </head>
@@ -33,22 +33,22 @@
                 Have a question, suggestion, or feedback?<br>
                 We're always happy to hear from you. Fill out the form below, and we'll get back to you soon.</p>
             </div>
-            <form class="contact-form">
+            <form class="contact-form" id="contact-form">
                 <div class="form-group">
                     <label>Name</label>
-                    <input type="text">
+                    <input type="text" id="name" name="name" required>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email">
+                    <input type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group">
                     <label>Subject</label>
-                    <input type="text">
+                    <input type="text" id="subject" name="subject" required>
                 </div>
                 <div class="form-group">
                     <label>Message</label>
-                    <textarea></textarea>
+                    <textarea  id="message" name="message" required></textarea>
                 </div>
                 <button class="button" type="submit">Send Message</button>
             </form>
@@ -59,19 +59,30 @@
      <footer>
         <div id="about">&copy; 2026 Tech Blog | Created by <b>Arpita Ghosh</b></div>
         <div id="social_icons">
-        <a href="https://facebook.com" target="_blank">
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
             <i class="fa-brands fa-facebook"></i>
         </a>
-        <a href="https://twitter.com" target="_blank">
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
             <i class="fa-brands fa-x-twitter"></i>
         </a>
-        <a href="https://instagram.com" target="_blank">
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
             <i class="fa-brands fa-instagram"></i>
         </a>
-        <a href="https://github.com" target="_blank">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer">
             <i class="fa-brands fa-github"></i>
         </a>
     </div>
 </footer>
+
+<div id="toast" class="toast">
+    <span class="check">✓</span>
+    <span id="toast-message"></span>
+</div>
+
+<script src="JS/contact.js"></script>
 </body>
+<div id="toast" class="toast">
+    <span class="check">✓</span>
+    <span id="toast-message"></span>
+</div>
 </html>

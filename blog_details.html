@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Details</title>
+    <!-- Google Fonts for Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+    <main class="blog-details-container">
+        <!-- Back Navigation -->
+        <a href="blogs.html" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i> Back to Blogs
+        </a>
+
+        <!-- Article Header -->
+        <header class="blog-header">
+            <span class="category-badge" id="category">Category</span>
+            <h1 class="blog-title" id="title">Loading Title...</h1>
+            
+            <div class="blog-meta">
+                <div class="author-info">
+                    <i class="fa-solid fa-circle-user avatar-icon"></i>
+                    <div>
+                        <p class="author-name" id="author">Author Name</p>
+                        <span class="publish-date" id="date"><i class="fa-regular fa-calendar"></i> Published Recently</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Featured Image -->
+        <div class="image-wrapper">
+            <img id="image" src="" alt="Blog Featured Image">
+        </div>
+
+        <!-- Blog Main Body -->
+        <article class="blog-content" id="content">
+            <!-- Dynamic Content Will Load Here -->
+        </article>
+    </main>
+
+    <script src="JS/blog_details.js"></script>
+</body>
+</html>
