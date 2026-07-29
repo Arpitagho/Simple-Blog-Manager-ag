@@ -5,7 +5,6 @@
     text-decoration: none;
 }
 body {
-    /* background-color: #f0f4f8;  */
     background: linear-gradient(135deg, #e3edf7 0%, #f4f8fc 100%);
 }
 
@@ -20,21 +19,20 @@ body {
     justify-content: space-between;
 }
 
+.navdiv{
+    padding: 5px;
+}
+
 #logo{
     font-weight: bold;
     color: white;
-    font-size: 25px;
+    font-size: 28px;
 }
 
 .navbar li, .navbar form{
     list-style: none;
     display: inline-block;
-    padding: 5px;
-}
-
-#social_icons a,#about{
-    font-weight: normal;
-    font-size: 15px;
+    padding: 2px;
 }
 
 span{
@@ -57,6 +55,7 @@ span{
     max-width: 700px;
     height: auto;
 }
+
 
 #heading h1{
     text-align: center;
@@ -306,9 +305,10 @@ span{
 
 .navbar li a {
     color: white;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     margin: 10px;
+    padding: 10px;
     position: relative;     
     padding-bottom: 5px;    
 }
@@ -316,7 +316,7 @@ span{
 
 #social_icons a, #about {
     color: white;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: normal;
     margin: 10px;
 }
@@ -508,6 +508,33 @@ span{
     white-space: pre-line;
 }
 
+.sidebar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 999;
+    height: 100vh;
+    background: rgba(197, 233, 248, 0.475);
+    backdrop-filter: blur(10px);
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+}
+
+.sidebar li{
+    width: 100%;
+
+}
+
+#menu-icon{
+    display: none;
+}
+
+
+
+
 @media (max-width: 900px) {
     .contact-wrapper {
         grid-template-columns: 1fr;
@@ -515,7 +542,7 @@ span{
 }
 
 
-@media (max-width: 810px) {
+@media (max-width: 800px) {
 
     #logo{
         font-size: 20px;
@@ -523,8 +550,19 @@ span{
         display: flex;
         align-items: center;
         gap: 8px;
-        margin-right: 55px;
+        /* margin-right: 55px; */
     }
+    .hideOnMobile{
+        display: none;
+    }
+
+    #menu-icon{
+        display: block;
+    }
+    #hideOnMobile{
+        display: none;
+    }
+
     .welcome {
         flex-direction: column-reverse; 
         text-align: center;
@@ -544,6 +582,22 @@ span{
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+
+    #social_icons a, #about{
+        font-size: 10px;
+    }
+    
+    .sidebar li a{
+        font-size: 15px;
+        display: block;
+        padding: 0;
+         -webkit-text-stroke: 0.3px rgb(251, 253, 255);
+        /* color: black; */ 
+    }
+
+    .navdiv{
+        padding: 0;
     }
 }
 

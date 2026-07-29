@@ -142,26 +142,40 @@ async function undoDelete() {
 }
 
 
-
 document.addEventListener("DOMContentLoaded", () => {
-    
-    const searchForm = document.getElementById("search-form");
-    const searchInput = document.getElementById("search-input");
+    // Select all search forms (desktop & sidebar mobile)
+    const searchForms = document.querySelectorAll("#search-form");
 
-    if (searchForm && searchInput) {
-        searchForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const query = searchInput.value.trim();
-            handleBlogSearch(query);
-        });
+    searchForms.forEach(form => {
+        const searchInput = form.querySelector("#search-input");
 
-        
-        searchInput.addEventListener("input", (e) => {
-            const query = e.target.value.trim();
-            handleBlogSearch(query);
-        });
-    }
+        if (searchInput) {
+            // Form submission event
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const query = searchInput.value.trim();
+                handleBlogSearch(query);
+            });
+
+            // Live search / Input event
+            searchInput.addEventListener("input", (e) => {
+                const query = e.target.value.trim();
+                
+                // Keep both search input fields in sync (Desktop & Mobile)
+                document.querySelectorAll("#search-input").forEach(input => {
+                    if (input !== e.target) {
+                        input.value = e.target.value;
+                    }
+                });
+
+                handleBlogSearch(query);
+            });
+        }
+    });
 });
+
+
+
 
 async function handleBlogSearch(query) {
     const blogContainer = document.getElementById("blog-container");
@@ -224,3 +238,7 @@ async function handleBlogSearch(query) {
         console.error("Error searching blogs:", error);
     }
 }
+
+
+
+
