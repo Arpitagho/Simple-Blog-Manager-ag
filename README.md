@@ -1,3 +1,14 @@
+
+
+https://github.com/user-attachments/assets/85b1590d-1cf3-44f0-89fa-ef26c317777a
+
+
+
+
+https://github.com/user-attachments/assets/45910a69-2475-4ce4-8b75-4f1424e4dbf4
+
+
+
 📖 Tech Blogs - Blog Management System
 
 A responsive full-stack Blog Management Web Application built using HTML, CSS, JavaScript, Node.js, and Express.js. The application allows users to create, read, update, delete, search, and manage blog posts through an intuitive and user-friendly interface.
@@ -13,6 +24,7 @@ Responsive blog cards layout
 Search blogs instantly
 
 Edit and Delete functionality
+
 
 Undo Delete notification
 
